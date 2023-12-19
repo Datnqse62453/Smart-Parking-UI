@@ -1,32 +1,36 @@
 "use client";
-import { useEffect, useState } from "react";
-import axios from "axios";
-import Head from "next/head";
-import { Box, Button, Container, Stack, Typography, Unstable_Grid2 as Grid } from "@mui/material";
 import {
+  Badge,
+  Box,
+  Button,
+  Container,
   Dialog,
   DialogActions,
   DialogContent,
   DialogContentText,
   DialogTitle,
   FormControl,
+  Unstable_Grid2 as Grid,
   InputLabel,
-  Select,
-  MenuItem,
   List,
   ListItem,
   ListItemText,
+  MenuItem,
   Paper,
+  Select,
+  Stack,
   Switch,
-  Badge,
-  TextField,
+  Typography,
 } from "@mui/material";
-import Image from "next/image";
-import { Layout as DashboardLayout } from "src/layouts/dashboard/layout";
+import axios from "axios";
 import moment from "moment";
-import { useAuthContext } from "src/contexts/auth-context";
+import Head from "next/head";
+import Image from "next/image";
 import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import { useAuthContext } from "src/contexts/auth-context";
+import { Layout as DashboardLayout } from "src/layouts/dashboard/layout";
 
 const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 const renderButtonsBasedOnStatus = (status) => {
@@ -49,15 +53,12 @@ const renderButtonsBasedOnStatus = (status) => {
       );
     case "active":
       return (
-        <Button onClick={() => handleTempDeactive(registration.registrationId)}>Deactivate</Button>
+        <Button onClick={() => handleDeactive(registration.registrationId)}>Deactivate</Button>
       );
     case "temp-inactive":
       return (
         <>
           <Button onClick={() => handleReactive(registration.registrationId)}>Reactivate</Button>
-          <Button onClick={() => handlePermanentDeactive(registration.registrationId)}>
-            Permanent Deactivate
-          </Button>
         </>
       );
     default:
